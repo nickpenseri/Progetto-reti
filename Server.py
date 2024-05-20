@@ -65,6 +65,7 @@ def gestisce_client(client):
                 client.close()
                 del clients[client]
                 broadcast(bytes("%s ha abbandonato la chat!" % nome, "utf8"))
+                print(indirizzi[client], " si è scollegato.")
                 break
     except Exception as e:
         print(f"Errore nella gestione del client: {e}")
@@ -72,6 +73,7 @@ def gestisce_client(client):
         if client in clients:
             del clients[client]
             broadcast(bytes("%s ha abbandonato la chat!" % clients[client], "utf8"))
+            print(indirizzi[client], " si è scollegato.")
 
 # Invia un messaggio a tutti i client connessi.
 # Usa un try-except per catturare e gestire eventuali eccezioni durante l'invio dei messaggi.
