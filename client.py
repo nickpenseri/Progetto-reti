@@ -31,7 +31,8 @@ def invio(event = None):
     my_msg.set("")
     #invio del messaggio sul socket
     client_socket.send(bytes(messaggio, "utf8"))
-    #se il messaggio è quello con cui si termina la connessione si chiudono il socket e la finestra
+    #se il messaggio è quello con cui si termina la connessione si attende l'ultimo messaggio mandato dal server
+    #e si chiudono il socket e la finestra
     if messaggio == "{quit}":
         client_socket.recv(BUFSIZE)
         client_socket.close()
@@ -68,7 +69,7 @@ entry_field = tkt.Entry(finestra, textvariable=my_msg)
 entry_field.bind("<Return>", invio)
 
 entry_field.pack()
-#creazione del tasto invio e associazione alla funzione invio
+#creazione del pulsante invio e associazione alla funzione invio
 send_button = tkt.Button(finestra, text="Invio", command=invio)
 #integrazione del tasto nel pacchetto
 send_button.pack()
@@ -78,6 +79,7 @@ finestra.protocol("WM_DELETE_WINDOW", chiusura)
 
 
 #richiesta di inserimento della coppia indirizzo-porta del server
+#se non viene specificato uno dei due vengono chiesti nuovamente
 while True: 
     INDIRIZZO_SERVER=input("Inserire l'indirizzo IP del server host: ")
     PORTA_SERVER=input("Inserire la porta del server host: ")
