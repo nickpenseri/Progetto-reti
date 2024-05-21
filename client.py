@@ -8,7 +8,6 @@ Created on Mon May 20 11:54:31 2024
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread
 import tkinter as tkt
-import time
 
 #funzione per ricevere i messaggi, che verrà invocata 
 #in un thread sempre attivo dall'inizio della connessione
@@ -34,7 +33,7 @@ def invio(event = None):
     client_socket.send(bytes(messaggio, "utf8"))
     #se il messaggio è quello con cui si termina la connessione si chiudono il socket e la finestra
     if messaggio == "{quit}":
-        time.sleep(1)
+        client_socket.recv(BUFSIZE)
         client_socket.close()
         finestra.destroy()
         
